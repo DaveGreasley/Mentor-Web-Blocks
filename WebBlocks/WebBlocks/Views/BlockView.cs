@@ -110,13 +110,13 @@ namespace WebBlocks.Views
 
             TinyMCE tinyMceHelper = new TinyMCE();
 
-            string blockContent = WebBlocksUtility.IsInBuilder ? block.Content : umbraco.library.RenderMacroContent(tinyMceHelper.ReplaceMacroTags(HttpUtility.UrlDecode(block.Content)), WebBlocksUtility.CurrentPageNodeId);
+            string blockContent = WebBlocksUtility.IsInBuilder ? HttpUtility.UrlDecode(block.Content)
+                : umbraco.library.RenderMacroContent(tinyMceHelper.ReplaceMacroTags(HttpUtility.UrlDecode(block.Content)), WebBlocksUtility.CurrentPageNodeId);
 
             if (!WebBlocksUtility.IsInBuilder)
                 blockContent = LocalLinkHelper.ResolveLocalLinks(blockContent);
 
-            return string.Format("<{0}{1} class='{2}'{3}{4}>{5}</{0}>", block.Element, webBlocksId, blockClass, blockTemplateAttribute, blockDeletedAttribute,
-                HttpUtility.UrlDecode(blockContent));
+            return string.Format("<{0}{1} class='{2}'{3}{4}>{5}</{0}>", block.Element, webBlocksId, blockClass, blockTemplateAttribute, blockDeletedAttribute, blockContent);
         }
 
         protected IRenderingEngine ResolveRenderingEngine(NodeBlock block)

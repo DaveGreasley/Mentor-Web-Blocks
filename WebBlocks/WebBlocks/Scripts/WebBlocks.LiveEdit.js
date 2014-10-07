@@ -318,7 +318,7 @@ $(document).ready(function () {
 
                 if ($(this).hasClass("pageWysiwygBlock")) {
                     block = new WebBlocks.WysiwygBlock();
-                    block.Content = encodeURI($(this).html());
+                    block.Content = encodeURIComponent($(this).html());
                 } else {
                     block = new WebBlocks.NodeBlock();
                 }
